@@ -1,6 +1,6 @@
-import { DM_Sans } from "next/font/google";
+import { Radio_Canada } from "next/font/google";
 
-export const dmSans = DM_Sans({
+export const radioCanada = Radio_Canada({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "900"],
+  weight: ["400", "600", "700"],
 });
