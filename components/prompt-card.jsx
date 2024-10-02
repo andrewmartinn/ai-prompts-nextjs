@@ -1,16 +1,28 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
-export default function PromptCard({ post, handleTagClick }) {
+export default function PromptCard({
+  post,
+  handleTagClick,
+  handleEdit,
+  handleDelete,
+}) {
+  const pathname = usePathname();
   const [copied, setCopied] = useState("");
+
+  const { data: session } = useSession();
 
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(""), 3000);
   };
+
+  console.log(post);
 
   return (
     <div className="prompt_card">
@@ -50,6 +62,16 @@ export default function PromptCard({ post, handleTagClick }) {
       >
         {post.tags}
       </p>
+      {session?.user.id === post.creator._id && pathname === "/profile" && (
+        <div className="flex items-center justify-end gap-3">
+          <button className="green_gradient" onClick={handleEdit}>
+            Edit
+          </button>
+          <button className="orange_gradient" onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 }
