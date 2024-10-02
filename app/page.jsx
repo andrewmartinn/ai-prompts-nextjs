@@ -1,4 +1,4 @@
-import PromptCollection from "@/components/prompt-collection";
+import PromptFeed from "@/components/prompt-feed";
 
 export default function Home() {
   return (
@@ -12,8 +12,7 @@ export default function Home() {
         Join a community of creators sharing innovative AI prompts across
         diverse topics. Discover, create, and inspire one prompt at a time.
       </p>
-      {/* prompts collection */}
-      <PromptCollection />
+      <PromptFeed />
     </section>
   );
 }

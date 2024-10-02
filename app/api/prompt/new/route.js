@@ -30,7 +30,7 @@ export async function POST(req, res) {
           success: false,
           message: "Failed to create prompt",
         },
-        { status: 500 },
+        { status: 400 },
       );
     }
 
