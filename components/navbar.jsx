@@ -14,13 +14,13 @@ const navLinks = [
   {
     id: 1,
     name: "Create",
-    url: "/",
+    url: "/create-prompt",
     icon: <FiExternalLink />,
   },
   {
     id: 2,
     name: "Profile",
-    url: "/",
+    url: "/profile",
     icon: <FaUser />,
   },
 ];
@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex-between mb-16 w-full items-center pt-6">
-      <Link href="">
+      <Link href="/">
         <Image
           quality={95}
           priority

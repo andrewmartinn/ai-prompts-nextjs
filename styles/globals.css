@@ -122,7 +122,7 @@
 
 /* Form Component */
 .form_textarea {
-  @apply mt-2 flex h-[200px] w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex h-[250px] w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
 }
 
 .form_input {

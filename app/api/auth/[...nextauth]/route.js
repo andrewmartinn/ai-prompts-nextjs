@@ -20,10 +20,8 @@ export const authOptions = {
     async signIn({ profile }) {
       try {
         await connectToDB();
-        console.log(profile, "next-auth callback signIn");
         // check if user exists
         const existingUser = await User.findOne({ email: profile.email });
-        console.log(existingUser, "next-auth callback signIn");
         // create new user DB
         if (!existingUser) {
           await User.create({
