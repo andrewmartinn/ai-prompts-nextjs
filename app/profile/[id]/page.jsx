@@ -10,8 +10,6 @@ export default function UserProfile({ params }) {
   const searchParams = useSearchParams();
   const username = searchParams.get("name");
 
-  console.log(params, "search params");
-
   useEffect(() => {
     const fetchUserPrompts = async () => {
       if (params?.id) {
