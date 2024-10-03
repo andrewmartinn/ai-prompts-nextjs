@@ -43,8 +43,24 @@ export default function Profile() {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
-  const handleDelete = () => {
-    console.log("delete prompt");
+  const handleDelete = async (post) => {
+    const hasConfirmed = confirm("Are you sure you want to delete this prompt");
+
+    if (hasConfirmed) {
+      try {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${post._id.toString()}`,
+          {
+            method: "DELETE",
+          },
+        );
+
+        const filteredPosts = userPosts.filter((item) => item._id !== post._id);
+        setUserPosts(filteredPosts);
+      } catch (error) {
+        console.log("Error deleting the post:", error);
+      }
+    }
   };
 
   return (

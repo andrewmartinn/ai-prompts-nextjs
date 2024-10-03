@@ -101,7 +101,7 @@ export default function PromptForm({ userId, type, promptData }) {
             name="tags"
             id="tags"
             className="form_input"
-            placeholder="#webdev, #cooking, #product, #idea"
+            placeholder="webdev, cooking, product, idea"
             {...register("tags", { required: "Tag is required" })}
           />
           {errors.tags && (

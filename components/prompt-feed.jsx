@@ -6,6 +6,7 @@ import PromptCardList from "./prompt-card-list";
 export default function PromptFeed() {
   const [posts, setPosts] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const fetchPromptPosts = async () => {
@@ -14,16 +15,32 @@ export default function PromptFeed() {
       );
       const postsData = await response.json();
       setPosts(postsData.data);
+      setSearchResults(postsData.data);
     };
 
     fetchPromptPosts();
   }, []);
 
   const handleSearch = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      console.log(searchText);
+    const value = e.target.value;
+    setSearchText(value);
+    filterPosts(value);
+  };
+
+  const filterPosts = (searchTerm) => {
+    if (searchTerm.trim() === "") {
+      setSearchResults(posts);
+      return;
     }
+
+    const filteredPosts = posts.filter(
+      (item) =>
+        item.tags.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.prompt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.creator.username.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+
+    setSearchResults(filteredPosts);
   };
 
   const handleTagClick = () => {
@@ -38,11 +55,10 @@ export default function PromptFeed() {
           placeholder="Search by tag or user..."
           className="search_input peer"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          onKeyDown={handleSearch}
+          onChange={handleSearch}
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={handleTagClick} />
+      <PromptCardList data={searchResults} handleTagClick={handleTagClick} />
     </section>
   );
 }

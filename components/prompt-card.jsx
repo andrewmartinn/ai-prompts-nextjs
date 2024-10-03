@@ -22,8 +22,6 @@ export default function PromptCard({
     setTimeout(() => setCopied(""), 3000);
   };
 
-  console.log(post);
-
   return (
     <div className="prompt_card">
       <div className="flex items-start justify-between gap-5">
@@ -60,7 +58,7 @@ export default function PromptCard({
         className="blue_gradient cursor-pointer text-sm"
         onClick={() => handleTagClick && handleTagClick(post.tags)}
       >
-        {post.tags}
+        #{post.tags}
       </p>
       {session?.user.id === post.creator._id && pathname === "/profile" && (
         <div className="flex items-center justify-end gap-3">
