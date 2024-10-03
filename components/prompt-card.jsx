@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PromptCard({
   post,
@@ -25,7 +26,10 @@ export default function PromptCard({
   return (
     <div className="prompt_card">
       <div className="flex items-start justify-between gap-5">
-        <div className="flex flex-1 cursor-pointer items-center justify-start gap-3">
+        <Link
+          href={`/profile/${post.creator._id}?name=${post.creator.username}`}
+          className="flex flex-1 cursor-pointer items-center justify-start gap-3"
+        >
           <Image
             src={post.creator.image}
             alt="user image"
@@ -39,7 +43,7 @@ export default function PromptCard({
             </h3>
             <p className="text-sm text-gray-500">{post.creator.email}</p>
           </div>
-        </div>
+        </Link>
         <div className="copy_btn" onClick={handleCopy}>
           <Image
             src={

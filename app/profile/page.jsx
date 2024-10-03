@@ -6,7 +6,7 @@ import ProfileSummary from "@/components/profile-summary";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function Profile() {
+export default function MyProfile() {
   const router = useRouter();
   const [userPosts, setUserPosts] = useState([]);
 
@@ -65,8 +65,10 @@ export default function Profile() {
 
   return (
     <ProfileSummary
-      name="Andrew"
-      desc="Welcome to your personalized profile"
+      name={
+        session?.user.name.charAt(0).toUpperCase() + session?.user.name.slice(1)
+      }
+      desc="Welcome to your personalized profile page. View, Edit and Delete prompts"
       data={userPosts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}

@@ -43,8 +43,9 @@ export default function PromptFeed() {
     setSearchResults(filteredPosts);
   };
 
-  const handleTagClick = () => {
-    console.log("tag clicked");
+  const handleTagClick = (tags) => {
+    setSearchText(tags);
+    filterPosts(tags);
   };
 
   return (
@@ -52,7 +53,7 @@ export default function PromptFeed() {
       <form className="flex-center relative w-full">
         <input
           type="text"
-          placeholder="Search by tag or user..."
+          placeholder="Search by tag, user or prompt..."
           className="search_input peer"
           value={searchText}
           onChange={handleSearch}
