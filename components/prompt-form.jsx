@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-export default function PromptForm({ userId, type }) {
+export default function PromptForm({ userId, type, promptData }) {
   const router = useRouter();
   const {
     register,
@@ -13,30 +13,54 @@ export default function PromptForm({ userId, type }) {
     reset,
   } = useForm({
     defaultValues: {
-      prompt: "",
-      tags: "",
+      prompt: promptData ? promptData.prompt : "",
+      tags: promptData ? promptData.tags : "",
     },
   });
 
   const onSubmit = async (values) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/new`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+    if (type === "Create") {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/new`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...values, userId: userId }),
           },
-          body: JSON.stringify({ ...values, userId: userId }),
-        },
-      );
+        );
 
-      if (response.ok) {
-        reset();
-        router.push("/");
+        if (response.ok) {
+          reset();
+          router.push("/");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    }
+
+    if (type === "Update") {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompt/${promptData._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          },
+        );
+
+        if (response.ok) {
+          reset();
+          router.push("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

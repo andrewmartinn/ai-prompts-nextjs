@@ -1,5 +1,6 @@
 import { connectToDB } from "@/lib/database";
 import Prompt from "@/lib/database/models/prompt.model";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req, res) {
@@ -34,6 +35,7 @@ export async function POST(req, res) {
       );
     }
 
+    revalidatePath("/");
     return NextResponse.json(
       {
         success: true,

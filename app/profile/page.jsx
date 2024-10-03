@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 
 import ProfileSummary from "@/components/profile-summary";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
+  const router = useRouter();
   const [userPosts, setUserPosts] = useState([]);
 
   const { data: session, status } = useSession();
@@ -25,7 +27,6 @@ export default function Profile() {
           }
 
           const data = await response.json();
-          console.log("data from use effect", data);
           setUserPosts(data.data);
         } catch (error) {
           console.error("Failed to fetch users posts:", error);
@@ -38,8 +39,8 @@ export default function Profile() {
     }
   }, [session, status]);
 
-  const handleEdit = () => {
-    console.log("edit prompt");
+  const handleEdit = (post) => {
+    router.push(`/update-prompt?id=${post._id}`);
   };
 
   const handleDelete = () => {
